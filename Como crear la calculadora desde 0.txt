@@ -1,0 +1,163 @@
+1.-para abrir esta calculadora tendras que tener en tu editor de codigo instalado node.js react npm javascript en mi caso VSC
+2.-para ejecutar el script desde el terminal "npm run start"
+!si no tienes todos los archivos descargados puedes crear desde 0 con las siguientes instrucciones
+abrir Visual Studio Code
+1.- ejecutar en terminal: "npx create-react-app my-calculator-app" (este nombre sera el nombre de tu proyecto "my-calculator-app")
+2.- cuando salga este mensaje ya cargo todas las carpetas y archivos necesarios
+
+Ruta donde creara las carpetas
+"../Desktop\Programacion\Proyecto Calculadora en react>" 
+
+3.- a tu izquierda se crearon todas las carpetas necesarias para ejecutar react 
+Edita dentro de la carpeta src/App.js  por el nombre de tu proyecto en este caso "calculator.js" guarda 
+4.-pega este codigo en "calculator.js"
+import React, { useState } from 'react';
+
+function Calculator() {
+  const [display, setDisplay] = useState('');
+
+  function handleClick(e) {
+    const value = e.target.value;
+
+    if (value === '=') {
+      try {
+        const result = eval(display);
+        setDisplay(result);
+      } catch (error) {
+        setDisplay('Error');
+      }
+    } else if (value === 'C') {
+      setDisplay('');
+    } else {
+      setDisplay(display + value);
+    }
+  }
+
+  return (
+    <div className="calculator">
+      <div className="title-container">
+      <h1 className="title">Calculadora</h1>
+    </div>
+      <input type="text" value={display} disabled />
+      <button value="7" onClick={handleClick}>7</button>
+      <button value="8" onClick={handleClick}>8</button>
+      <button value="9" onClick={handleClick}>9</button>
+      <button value="+" onClick={handleClick}>+</button>
+      <button value="4" onClick={handleClick}>4</button>
+      <button value="5" onClick={handleClick}>5</button>
+      <button value="6" onClick={handleClick}>6</button>
+      <button value="-" onClick={handleClick}>-</button>
+      <button value="1" onClick={handleClick}>1</button>
+      <button value="2" onClick={handleClick}>2</button>
+      <button value="3" onClick={handleClick}>3</button>
+      <button value="*" onClick={handleClick}>*</button>
+      <button value="0" onClick={handleClick}>0</button>
+      <button value="." onClick={handleClick}>.</button>
+      <button value="/" onClick={handleClick}>/</button>
+      <button value="C" onClick={handleClick}>C</button>
+      <button value="=" onClick={handleClick}>=</button>
+      <p>by darsito92</p>
+    </div>
+    
+  );
+}//debes exportar la funcion sino aunque esta definida no se usa
+export default Calculator;
+
+5.- guarda el archivo editado luego escribir "npm start" en terminal y presionar enter
+6.- debes permitir el acceso al terminal si windows defender lo bloquea
+7.-Abre tu navegador web y navega a http://localhost:3000 para ver la aplicación de la calculadora en funcionamiento.
+8.- para los css crea archivo CSS "calculator.css" dentro de la misma carpeta index.js que creo al ejecutar react y pega este codigo
+.calculator {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .calculator input[type="text"] {
+    grid-column: 1 / span 4;
+    padding: 10px;
+    font-size: 24px;
+    text-align: right;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    margin-bottom: 20px;
+  }
+
+  .calculator button {
+    padding: 10px;
+    font-size: 24px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    cursor: pointer;
+  }
+  
+  .calculator button:hover {
+    background-color: #f2f2f2;
+  }
+  .title-container {
+    text-align: center;
+    grid-column: 1 / -1;
+    color: rgb(31, 144, 25);
+  }
+  
+  .title {
+    margin: 0;
+  }
+  p{
+    color: #b5b1b1;
+  }
+
+9.-En Calculator.js, importa el archivo CSS que acabas de crear en la parte superior del archivo: import './Calculator.css'; guarda los cambios
+10.- si arroja algun error de ruta debes modificar archivo index.js debe estar de esta forma:
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import Calculator from './calculator';
+import reportWebVitals from './reportWebVitals';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <Calculator />
+  </React.StrictMode>
+);
+
+//esta funcion es para para medir el rendimiento de la aplicación y enviar datos a un punto de análisis.
+reportWebVitals();
+
+11.-ya deberias poder ejecutar desde //localhost:3000 tu app 
+12.- en algunos casos arroja error "const result = eval(display);" porque la funcion eval no es segura y se puede modificar con codigo malicioso para evitar esto 
+13.- ejecuta en el terminal "npm install mathjs" es una librería de análisis matemático para evaluar expresiones matemáticas.
+14.-una ves instalada debes importarla "import * as math from 'mathjs';" en el archivo "calculator.js" 
+15.- cambiar la linea por "const result = math.evaluate(display);"
+16.-la funcion quedaria:
+
+function handleClick(e) {
+    const value = e.target.value;
+
+    if (value === '=') {
+      try {
+        const result = math.evaluate(display);
+        setDisplay(result);
+      } catch (error) {
+        setDisplay('Error');
+      }
+    } else if (value === 'C') {
+      setDisplay('');
+    } else {
+      setDisplay(display + value);
+    }
+  }
+
+exito! buen codigo! by Darsito92 
